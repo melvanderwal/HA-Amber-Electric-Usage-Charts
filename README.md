@@ -14,7 +14,7 @@ My inverter typically reports exported power about 3% lower than what is receive
 
 Prerequisites:
 * The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric)
-* A Home Assistant inverter integration which provides import and export power
+* A Home Assistant inverter integration which provides import and export power (or a power sensor from which import and export can be derived)
 * The [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card)
   * This integration is not required if you choose to build your own charts with a different integration.
 
