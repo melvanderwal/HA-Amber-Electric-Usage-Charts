@@ -20,7 +20,7 @@ Prerequisites:
 
 This is how it works:
 
-![image](https://user-images.githubusercontent.com/25993713/234170440-2f414771-dc8d-45ce-92bf-cfaa200222e4.png)
+![image](https://user-images.githubusercontent.com/25993713/234204375-b9f81c18-eafd-474c-b0d1-4f0732b42857.png)
 
 To get it running, the only changes you should need to make are in the template sensors.
 * Do whatever is required to have inverter_import_power and inverter_export_power return the power in kW.
