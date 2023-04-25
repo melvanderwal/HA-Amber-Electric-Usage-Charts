@@ -15,6 +15,7 @@ My inverter typically reports exported power about 3% lower than what is receive
 *Prerequisites:*
 * The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric)
 * A Home Assistant inverter integration which provides import and export power (or a power sensor from which import and export can be derived)
+  * Mine is the [GoodWe integration](https://www.home-assistant.io/integrations/goodwe/)
 * The [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card)
   * This integration is not required if you choose to build your own charts with a different integration.
 
@@ -23,19 +24,26 @@ This is how it works:
 ![image](https://user-images.githubusercontent.com/25993713/234205815-c91cb1fb-e8ea-4cdd-ab06-51a63405d4ff.png)
 
 To get it running, the only changes you should need to make are in the template sensors.
-* Implement and test the template sensors first, prior to adding the configuration for the Reismann Sum and Utility Meter sensors.
+* Implement and test the template sensors first, prior to adding the configuration for the Reimann Sum and Utility Meter sensors.
   * Do whatever is required to have inverter_import_power and inverter_export_power return the power as positive units in kW.
-    * Start with a correctionFactor value of 1. Note the difference in percent between what this reports and what Amber reports, and adjust the value accordingly.
+    * Start with a correctionFactor value of 1.
   * Change the Amber sensor ids in amber_import_cost and amber_export_cost to match your Amber integration.
-* Add the Reismann Sum sensors.
+* Add the Reimann Sum sensors.
   * They won't exist until you restart Home Assistant.
-  * The Riemann Sum sensors take a little while to start logging data, and won't start until non-zero data is coming from your template sensors. Give it some time.
+  * The Riemann Sum sensors won't start logging data until non-zero data is coming from your template sensors. Give it some time.
 * Add the Utility Meter sensors.
   * They won't exist until you restart Home Assistant.
+* Over a few days, note the difference between what your inverter has reported in kW to what is reported in Amber's app.
+  * In the power template sensors, correctionFactor is a multiplier to adjust the kW of your inverter sensor to be closer to what is reported by your smart meter to Amber.  Adjust the value accordingly.
 
 Notes: 
-* The Import Cost and Export Profit utility meters have a unit of $h (similar to kWh). If this is too annoying, simply create a template sensor that produces the value with a different unit.
-* I use folders for my configuration, so the code is organised that way - you may have to restructure to work with your configuration.yaml.
-  * I could not get the utility meters to work with a folder (i.e., `utility_meter: !include_dir_merge_list utility_meter`), hence the single file.
+* The Import Cost and Export Profit Riemann Sum and Utility Meter sensors have a unit of $h (similar to how kW becomes kWh). If this is too annoying, simply create a template sensor that produces the output value with a different unit.
+* I use folders for my configuration, so the code is organised that way - you may have to restructure to work with how your configuration.yaml is set up.
+  * I could not get the utility meters to work with a folder (i.e., `utility_meter: !include_dir_merge_list utility_meter`), hence the single included file.
+  * My configuration.yaml setup for these files:
+    ```
+    template: !include_dir_merge_list template    
+    sensor: !include_dir_merge_list sensor    
+    utility_meter: !include utility-meters.yaml
+    ```
 * If you wish to have a different duration (e.g. hourly or weekly), it's simple enough to add a different utility meter.
-  * If you make changes to the utility meters, they won't take effect until you restart Home Assistant.
