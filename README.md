@@ -1,7 +1,7 @@
 # Home Assistant - Amber Electric Usage Charts
 ### Usage charts in Home Assistant for Amber Electric pricing
 
-This code is used in Home Assistant with the Amber Electric integration to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
+This is used in Home Assistant with the Amber Electric integration to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
 
 ![image](https://user-images.githubusercontent.com/25993713/234173654-b3e60742-90cc-4252-ad6d-4c55a3100b57.png)
 
