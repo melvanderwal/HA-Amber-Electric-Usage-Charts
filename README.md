@@ -27,10 +27,11 @@ To get it running, the only changes you should need to make are in the template 
   * Do whatever is required to have inverter_import_power and inverter_export_power return the power as positive units in kW.
     * Start with a correctionFactor value of 1. Note the difference in percent between what this reports and what Amber reports, and adjust the value accordingly.
   * Change the Amber sensor ids in amber_import_cost and amber_export_cost to match your Amber integration.
-* Add the Reismann Sum sensors and verify that they are working correctly.
+* Add the Reismann Sum sensors.
+  * They won't exist until you restart Home Assistant.
   * The Riemann Sum sensors take a little while to start logging data, and won't start until non-zero data is coming from your template sensors. Give it some time.
 * Add the Utility Meter sensors.
-  * They won't take effect until you restart Home Assistant.
+  * They won't exist until you restart Home Assistant.
 
 Notes: 
 * The Import Cost and Export Profit utility meters have a unit of $h (similar to kWh). If this is too annoying, simply create a template sensor that produces the value with a different unit.
