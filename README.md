@@ -33,7 +33,7 @@ To get it running, the only changes you should need to make are in the template 
 * Implement and test the template sensors first, prior to adding the configuration for the Reimann Sum and Utility Meter sensors.
   * Do whatever is required to have `inverter_import_power` and `inverter_export_power` return the power as positive units in kW.
     * Start with a correctionFactor value of 1.
-  * Change the Amber sensor ids in `amber_import_cost` and `amber_export_cost` to match your Amber integration.
+  * Change the Amber sensor ids in `amber_import_cost` and `amber_export_profit` to match your Amber integration.
 * Add the Reimann Sum sensors.
   * They won't exist until you restart Home Assistant.
   * The Riemann Sum sensors won't start logging data until non-zero data is coming from your template sensors. Give it some time.
