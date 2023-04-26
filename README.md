@@ -5,10 +5,10 @@ This is used in Home Assistant with the Amber Electric integration to estimate u
 
 
 _Amber-Styled Charts_  
-![image](https://user-images.githubusercontent.com/25993713/234495711-a79dafb5-c614-4bdd-9674-d49f84680202.png)
+![image](https://user-images.githubusercontent.com/25993713/234527548-f8f815b3-44d5-4b35-ae4d-9a8f6c6230fd.png)
 
 _Combined Daily kWh and $ Chart_  
-![image](https://user-images.githubusercontent.com/25993713/234495453-d0113e07-04a9-46f2-8091-cc6b005c8680.png)
+![image](https://user-images.githubusercontent.com/25993713/234527306-a64b5b76-bb85-4292-b86b-bdffc9ee9bf2.png)
 
 *Prerequisites:* 
 * The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric).
