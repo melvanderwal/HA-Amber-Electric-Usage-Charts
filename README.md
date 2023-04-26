@@ -7,16 +7,16 @@ This is used in Home Assistant with the Amber Electric integration to estimate u
 
 Please note that the values will not match exactly with Amber's reporting, as:
 * The power values reported by your inverter are unlikely to exactly match what is recorded by your smart meter and sent to Amber
-* Any Home Assistant downtime will not have logging of power or prices
-* The way this calculates cost is probably slightly different than how it works in Amber's system
+* Any Home Assistant downtime will not have logging of power or prices, and
+* The way this calculates cost is probably slightly different than how it works in Amber's system.
 
-My inverter typically reports exported power about 3% lower than what is received by Amber. In the inverter_import_power and inverter_export_power template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.03.
+My inverter typically reports exported power about 3% lower than what is received by Amber. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.03.
 
 *Prerequisites:*
-* The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric)
-* A Home Assistant inverter integration which provides import and export power (or a power sensor from which import and export can be derived)
-  * Mine is the [GoodWe integration](https://www.home-assistant.io/integrations/goodwe/)
-* The [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card)
+* The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric).
+* A Home Assistant inverter integration which provides import and export power (or a power sensor from which import and export can be derived).
+  * Mine is the [GoodWe integration](https://www.home-assistant.io/integrations/goodwe/).
+* The [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card).
   * This integration is not required if you choose to build your own charts with a different integration.
 
 This is how it works:
@@ -25,16 +25,16 @@ This is how it works:
 
 To get it running, the only changes you should need to make are in the template sensors.
 * Implement and test the template sensors first, prior to adding the configuration for the Reimann Sum and Utility Meter sensors.
-  * Do whatever is required to have inverter_import_power and inverter_export_power return the power as positive units in kW.
+  * Do whatever is required to have `inverter_import_power` and `inverter_export_power` return the power as positive units in kW.
     * Start with a correctionFactor value of 1.
-  * Change the Amber sensor ids in amber_import_cost and amber_export_cost to match your Amber integration.
+  * Change the Amber sensor ids in `amber_import_cost` and `amber_export_cost` to match your Amber integration.
 * Add the Reimann Sum sensors.
   * They won't exist until you restart Home Assistant.
   * The Riemann Sum sensors won't start logging data until non-zero data is coming from your template sensors. Give it some time.
 * Add the Utility Meter sensors.
   * They won't exist until you restart Home Assistant.
 * Over a few days, note the difference between what your inverter has reported in kW to what is reported in Amber's app.
-  * In the power template sensors, correctionFactor is a multiplier to adjust the kW of your inverter sensor to be closer to what is reported by your smart meter to Amber.  Adjust the value accordingly.
+  * In the power template sensors, `correctionFactor` is a multiplier to adjust the kW of your inverter sensor to be closer to what is reported by your smart meter to Amber.  Adjust the value accordingly.
 
 Notes: 
 * The Import Cost and Export Profit Riemann Sum and Utility Meter sensors have a unit of $h (similar to how kW becomes kWh). If this is too annoying, simply create a template sensor that produces the output value with a different unit.
