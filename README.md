@@ -3,14 +3,20 @@
 
 This is used in Home Assistant with the Amber Electric integration to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
 
-![image](https://user-images.githubusercontent.com/25993713/234173654-b3e60742-90cc-4252-ad6d-4c55a3100b57.png)
+
+_Amber-Styled Charts_
+![image](https://user-images.githubusercontent.com/25993713/234495711-a79dafb5-c614-4bdd-9674-d49f84680202.png)
+
+_Combined Daily kWh and $ Chart_
+![image](https://user-images.githubusercontent.com/25993713/234495453-d0113e07-04a9-46f2-8091-cc6b005c8680.png)
+
 
 Please note that the values will not match exactly with Amber's reporting, as:
-* The power values reported by your inverter are unlikely to exactly match what is recorded by your smart meter and sent to Amber
+* The power values reported by your inverter are unlikely to exactly match what is recorded by your smart meter and sent to Amber,
 * Any Home Assistant downtime will not have logging of power or prices, and
 * The way this calculates cost is probably slightly different than how it works in Amber's system.
 
-My inverter typically reports exported power about 3% lower than what is received by Amber. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.03.
+For example, my inverter typically reports exported power about 3% lower than what is received by Amber. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.03.
 
 *Prerequisites:*
 * The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric).
@@ -19,9 +25,9 @@ My inverter typically reports exported power about 3% lower than what is receive
 * The [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card).
   * This integration is not required if you choose to build your own charts with a different integration.
 
-This is how it works:
+_Sensor Flow_
 
-![image](https://user-images.githubusercontent.com/25993713/234205815-c91cb1fb-e8ea-4cdd-ab06-51a63405d4ff.png)
+![image](https://user-images.githubusercontent.com/25993713/234497666-e124286b-9c8b-4f38-9a14-7bb0b8c63023.png)
 
 To get it running, the only changes you should need to make are in the template sensors.
 * Implement and test the template sensors first, prior to adding the configuration for the Reimann Sum and Utility Meter sensors.
@@ -33,6 +39,8 @@ To get it running, the only changes you should need to make are in the template 
   * The Riemann Sum sensors won't start logging data until non-zero data is coming from your template sensors. Give it some time.
 * Add the Utility Meter sensors.
   * They won't exist until you restart Home Assistant.
+* Add chart cards to a dashbaord.
+  * The provided charts are only intended as examples - build your own to suit your needs.
 * Over a few days, note the difference between what your inverter has reported in kW to what is reported in Amber's app.
   * In the power template sensors, `correctionFactor` is a multiplier to adjust the kW of your inverter sensor to be closer to what is reported by your smart meter to Amber.  Adjust the value accordingly.
 
