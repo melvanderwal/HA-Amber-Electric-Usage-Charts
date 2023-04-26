@@ -38,6 +38,7 @@ To get it running, the only changes you should need to make are in the template 
 
 Notes: 
 * The Import Cost and Export Profit Riemann Sum and Utility Meter sensors have a unit of $h (similar to how kW becomes kWh). If this is too annoying, simply create a template sensor that produces the output value with a different unit.
+* If you look at the built-in HA state graph for the 30 minute utility meter, it will be smoothed and not represent the data very well.  Click the _Show more_ link to see it resetting to zero every 30 minutes.
 * I use folders for my configuration, so the code is organised that way - you may have to restructure to work with how your configuration.yaml is set up.
   * I could not get the utility meters to work with a folder (i.e., `utility_meter: !include_dir_merge_list utility_meter`), hence the single included file.
   * My configuration.yaml setup for these files:
