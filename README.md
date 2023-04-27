@@ -18,14 +18,14 @@ _Combined Daily kWh and $ Chart_
   * This integration is not required if you choose to build your own charts with a different integration.
 
 Please note that the values will not match exactly with Amber's reporting, as:
-* The power values reported by your inverter are unlikely to exactly match what is recorded by your smart meter and sent to Amber,
-* Any Home Assistant downtime will not have logging of power or prices, and
-* The way this calculates cost is probably slightly different than how it works in Amber's system.
+* The power values reported by your inverter are unlikely to exactly match what is recorded by your smart meter and sent to Amber
+* Any Home Assistant downtime will not have logging of power or prices
+* The clock on your HA computer may not be synced with Amber's clock, so the 30 minute period may be shifted slightly
 
 For example, my inverter typically reports exported power about 3% lower than what is received by Amber. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.03.
 
 _Sensor Flow_  
-![image](https://user-images.githubusercontent.com/25993713/234497666-e124286b-9c8b-4f38-9a14-7bb0b8c63023.png)
+need a new diagram
 
 To get it running, the only changes you should need to make are in the template sensors.
 * Implement and test the template sensors first, prior to adding the configuration for the Reimann Sum and Utility Meter sensors.
