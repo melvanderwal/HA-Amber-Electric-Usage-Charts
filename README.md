@@ -61,3 +61,4 @@ Notes:
 * If you look at the built-in HA state graph for the 30 minute utility meter, it will be smoothed and not represent the data very well.  Click the _Show more_ link to see it resetting to zero every 30 minutes.
 * I use a package folder for my configuration - you may have to implement differently to work with how your configuration.yaml is set up.
 * If you wish to have a utility meter with a different duration (e.g. hourly or weekly), it's simple enough to add another using one of the existing meters as an example.
+* Number Inputs are used rather than sensors because upon a HA restart, sensors will create a new value at the last recorded value. In the case of Import Cost and Export Profit, the daily charts sum the values and this would result in a duplication of values in the 30 minute period, falsely inflating the daily sum.
