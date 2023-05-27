@@ -20,6 +20,9 @@ cards:
           foreColor: black
           borderWidth: 0
           padding: 0
+      tooltip:
+        x:
+          show: false
       xaxis:
         tooltip:
           enabled: false
@@ -72,6 +75,9 @@ cards:
           foreColor: black
           borderWidth: 0
           padding: 0
+      tooltip:
+        x:
+          show: false
       xaxis:
         tooltip:
           enabled: false
