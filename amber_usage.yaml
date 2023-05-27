@@ -1,0 +1,38 @@
+### Templates ###
+template:
+
+# Confirm that the templates are providing correct values before using this package, 
+# or erroneous data will be populated in the Riemann Sum and Utility Meter sensors.
+
+  - sensor:
+
+    # Current Power Import from Grid / Export to Grid
+    # The sensor name used here is for the GoodWe integration using an EH inverter
+    # which provides values in watts.
+
+    # Instructions: 
+    # Rewrite the state of these sensors to work with your inverter to return a
+    # positive value in kW for grid import power and grid export power.
+
+    # correctionFactor is a multiplier to adjust your inverter's power values so
+    # they are close to the power values provided by your smart meter to Amber
+    # Electric. Start with a value of 1.00 and adjust it when you have a few days
+    # of data to compare with Amber's usage data.
+    - unique_id: inverter_import_power
+      name: 'Inverter: Import Power'
+      device_class: power
+      unit_of_measurement: kW
+      state: >
+        {% set power = states('sensor.meter_active_power_total') | float(0) %}
+        {% set correctionFactor = 1.04 %}
+        {{ iif (power < 0, power|abs / 1000 * correctionFactor, 0) | float }}
+
+    - unique_id: inverter_export_power
+      name: 'Inverter: Export Power'
+      device_class: power
+      unit_of_measurement: kW
+      state: >
+        {% set power = states('sensor.meter_active_power_total') | float(0) %}
+        {% set correctionFactor = 1.02 %}
+        {{ iif (power > 0, power / 1000 * correctionFactor, 0) | float }}
+

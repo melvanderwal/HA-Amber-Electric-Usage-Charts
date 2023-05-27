@@ -1,0 +1,146 @@
+# After the sensors in amber_usage.yaml are confirmed to be working correctly,
+# append the following content to amber_usage.yaml.
+
+### Automations ###
+automation:
+
+  # Writes final import cost and export profit at the end of each 30 minute period.
+
+  # Instructions: 
+  # Update sensor.your_amber_general_price and sensor.your_amber_feed_in_price to the 
+  # corresponding sensor names from your Amber Electric integration.
+  - id: 'amber_30_minute_import_cost_export_price'
+    alias: 'Amber: 30 Minute Import Cost & Export Price'
+    trigger:
+    - platform: time_pattern
+      minutes: '29'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '59'
+      seconds: '58'
+    condition: []
+    action:
+    - service: input_number.set_value
+      data:
+        value: "{{ states('sensor.your_amber_general_price')|float(0) }}"
+      target:
+        entity_id: input_number.amber_closing_import_price
+    - service: input_number.set_value
+      data:
+        value: "{{ states('sensor.your_amber_feed_in_price')|float(0) }}"
+      target:
+        entity_id: input_number.amber_closing_export_price
+    - service: input_number.set_value
+      data:
+        value: >
+          {% set energy = states('sensor.inverter_import_energy_30_minutes')|float(0) %} 
+          {% set price = states('sensor.your_amber_general_price')|float(0) %} 
+          {{ energy * price | float }}
+      target:
+        entity_id: input_number.amber_import_cost_30_minutes
+    - service: input_number.set_value
+      data:
+        value: >
+          {% set energy = states('sensor.inverter_export_energy_30_minutes')|float(0) %} 
+          {% set price = states('sensor.your_amber_feed_in_price')|float(0) %} 
+          {{ energy * price | float }}
+      target:
+        entity_id: input_number.amber_export_profit_30_minutes
+    mode: single
+
+### Input Numbers ###
+input_number:
+
+  # Import price at the end of the 30 minute period
+  amber_closing_import_price:
+    name: 'Amber: Closing Import Price'
+    unit_of_measurement: $
+    icon: mdi:cash
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.01
+    mode: box
+
+  # Export price at the end of the 30 minute period
+  amber_closing_export_price:
+    name: 'Amber: Closing Export Price'
+    unit_of_measurement: $
+    icon: mdi:cash
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.01
+    mode: box
+
+  # Import cost at the end of the 30 minute period
+  amber_import_cost_30_minutes:
+    name: 'Amber: Import Cost (30 Minutes)'
+    unit_of_measurement: $
+    icon: mdi:cash
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.001
+    mode: box
+
+  # Export profit at the end of the 30 minute period
+  amber_export_profit_30_minutes:
+    name: 'Amber: Export Profit (30 Minutes)'
+    unit_of_measurement: $
+    icon: mdi:cash
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.001
+    mode: box
+
+
+### Riemann Sum Sensors ###
+sensor:
+
+  # Cumulative energy import
+  - platform: integration
+    unique_id: inverter_import_energy_total
+    name: 'Inverter: Import Energy Total'
+    source: sensor.inverter_import_power
+    method: left
+
+  # Cumulative energy export
+  - platform: integration
+    unique_id: inverter_export_energy_total
+    name: 'Inverter: Export Energy Total'
+    source: sensor.inverter_export_power
+    method: left
+
+
+### Utility Meters ###
+utility_meter:
+
+  # Cumulative energy import for each half hour
+  inverter_import_energy_30_minutes:  
+    unique_id: inverter_import_energy_30_minutes
+    name: 'Inverter: Import Energy (30 Minutes)'
+    source: sensor.inverter_import_energy_total
+    cron: "*/30 * * * *"
+
+  # Cumulative energy export for each half hour
+  inverter_export_energy_30_minutes:
+    unique_id: inverter_export_energy_30_minutes
+    name: 'Inverter: Export Energy (30 Minutes)'
+    source: sensor.inverter_export_energy_total
+    cron: "*/30 * * * *"
+
+  # Cumulative energy import for each day
+  inverter_import_energy_daily:  
+    unique_id: inverter_import_energy_daily
+    name: 'Inverter: Import Energy (Daily)'
+    source: sensor.inverter_import_energy_total
+    cycle: daily
+
+  # Cumulative energy export for each day
+  inverter_export_energy_daily:
+    unique_id: inverter_export_energy_daily
+    name: 'Inverter: Export Energy (Daily)'
+    source: sensor.inverter_export_energy_total
+    cycle: daily
