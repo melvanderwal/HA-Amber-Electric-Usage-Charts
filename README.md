@@ -8,10 +8,10 @@ Using prices from the Amber Electric integration, import and export prices are r
 
 
 _Amber-Styled Charts_  
-![image](https://github.com/melvanderwal/HA-Amber-Electric-Usage-Charts/assets/25993713/5f0f80a9-9b96-4edb-92a8-9d8163116f15)
+![image](https://github.com/melvanderwal/HA-Amber-Electric-Usage-Charts/assets/25993713/be59f582-927e-4b13-ae3b-0ad874a59476)
 
 _Combined Energy and Cost Charts_  
-![image](https://github.com/melvanderwal/HA-Amber-Electric-Usage-Charts/assets/25993713/32751934-cba7-440b-94a3-0b7d386ff2f4)
+![image](https://github.com/melvanderwal/HA-Amber-Electric-Usage-Charts/assets/25993713/0711b55a-3b8a-4619-a91a-4ecccd4f120e)
 
 *Prerequisites:* 
 * The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric).
@@ -25,18 +25,18 @@ Please note that the values will not match exactly with Amber's reporting, as:
 * Any Home Assistant downtime will not have logging of power or prices
 * The clock on your HA computer may not be in sync with Amber's clock, so the 30 minute period may be shifted slightly
 
-For example, my inverter typically reports exported power about 3.5% lower than what is received by Amber. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.035.
+For example, my inverter typically reports imported and exported power about 2% lower than what is received by Amber. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.02.
 
 _Sensor Flow_  
 need a new diagram
 
-The YAML is provided as a package. It can be implemented by adding the following to `configuration.yaml`:
+The YAML is provided as a package. It can be implemented as [described in the Home Assistant docummentation](https://www.home-assistant.io/docs/configuration/packages/).  For example, add the following to `configuration.yaml`:
 ```
 # Use packages in /package folder
 homeassistant:
   packages: !include_dir_named package
 ```
-and then copying `amber_usage.yaml` to `config/package/amber_usage.yaml`. Do not copy `amber_usage_part2.yaml` to the package folder.
+and then copy `amber_usage.yaml` to `config/package/amber_usage.yaml`. Do not copy `amber_usage_part2.yaml` to the package folder.
 
 To get it running, the only changes you should need to make are in the template sensors and the automation.
 * Implement and test the template sensors first by adding `amber_usage.yaml` as a package and updating the code as described below.
