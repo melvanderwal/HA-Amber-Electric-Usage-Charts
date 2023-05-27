@@ -8,10 +8,10 @@ Using prices from the Amber Electric integration, import and export prices are r
 
 
 _Amber-Styled Charts_  
-![image](https://github.com/melvanderwal/HA-Amber-Electric-Usage-Charts/assets/25993713/be59f582-927e-4b13-ae3b-0ad874a59476)
+![image](https://github.com/melvanderwal/HA-Amber-Electric-Usage-Charts/assets/25993713/d68165a8-e863-4790-b9f9-8e7c3b6e5d1c)
 
 _Combined Energy and Cost Charts_  
-![image](https://github.com/melvanderwal/HA-Amber-Electric-Usage-Charts/assets/25993713/0711b55a-3b8a-4619-a91a-4ecccd4f120e)
+![image](https://github.com/melvanderwal/HA-Amber-Electric-Usage-Charts/assets/25993713/432e1dba-8350-4e5d-9068-4eac5badc526)
 
 *Prerequisites:* 
 * The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric).
