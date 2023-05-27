@@ -55,6 +55,7 @@ To get it running, the only changes you should need to make are in the template 
     * These are derived from the Riemann Sum sensors, so they won't exist until you have restarted Home Assistant and the Riemann Sum sensors have data.
 * Add chart cards to a dashboard.
   * The provided charts are only intended as examples - build your own to suit your needs.
+  * They are provided as a single vertical stack card that you can add to a dashboard.
 * Over a few days, note the difference between what your inverter has reported in kW to what is reported in Amber's app.
   * In the power template sensors, `correctionFactor` is a multiplier to adjust the kW of your inverter sensor to be closer to what is reported by your smart meter to Amber.  Adjust the value accordingly.
 
