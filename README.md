@@ -42,7 +42,7 @@ To get it running, the only changes you should need to make are in the template 
     * Start with a `correctionFactor` value of 1.
     * Confirm that the sensors are returning correct import and export values as a positive number in kW.
 * Add the remaining code by appending the content of `amber_usage_part2.yaml` to `amber_usage.yaml`.
-  * Update `amber_30_minute_import_cost_export_price` by updating `sensor.your_amber_general_price` and `sensor.your_amber_feed_in_price` to the corresponding sensor names from your Amber Electric integration.
+  * Update the `amber_30_minute_import_cost_export_price` automation by updating `sensor.your_amber_general_price` and `sensor.your_amber_feed_in_price` to the corresponding sensor names from your Amber Electric integration.
   * Use Developer Tools to confirm that no errors are being raised.
 * Restart Home Assistant.
   * Reimann Sum sensors
