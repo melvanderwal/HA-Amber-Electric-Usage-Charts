@@ -25,7 +25,7 @@ Please note that the values will not match exactly with Amber's reporting, as:
 * Any Home Assistant downtime will not have logging of power or prices
 * The clock on your HA computer may not be in sync with Amber's clock, so the 30 minute period may be shifted slightly
 
-For example, my inverter typically reports imported and exported power about 2% lower than what is received by Amber. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.02.
+For example, my inverter typically reports imported and exported power about 2% lower than what is reported by the smart meter to Amber. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.02.
 
 _Sensor Flow_  
 need a new diagram
@@ -38,6 +38,7 @@ homeassistant:
 ```
 and then copy `amber_usage.yaml` to `config/package/amber_usage.yaml`. Do not copy `amber_usage_part2.yaml` to the package folder.
 
+#### Implementation
 To get it running, the only changes you should need to make are in the template sensors and the automation.
 * Implement and test the template sensors first by adding `amber_usage.yaml` as a package and updating the code as described below.
   * Do whatever is required to have `inverter_import_power` and `inverter_export_power` return power as positive units in kW.
@@ -57,8 +58,7 @@ To get it running, the only changes you should need to make are in the template 
 * Over a few days, note the difference between what your inverter has reported in kW to what is reported in Amber's app.
   * In the power template sensors, `correctionFactor` is a multiplier to adjust the kW of your inverter sensor to be closer to what is reported by your smart meter to Amber.  Adjust the value accordingly.
 
-Notes:  
+#### Notes
 * If you look at the built-in HA state graph for the 30 minute utility meter, it will be smoothed and not represent the data very well.  Click the _Show more_ link to see it resetting to zero every 30 minutes.
-* I use a package folder for my configuration - you may have to implement differently to work with how your configuration.yaml is set up.
 * If you wish to have a utility meter with a different duration (e.g. hourly or weekly), it's simple enough to add another using one of the existing meters as an example.
 * Number Inputs are used rather than sensors because upon a HA restart, sensors will create a new value at the last recorded value. In the case of Import Cost and Export Profit, the daily charts sum the values and this would result in a duplication of values in the 30 minute period, falsely inflating the daily sum.
