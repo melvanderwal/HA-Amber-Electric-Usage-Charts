@@ -1,13 +1,13 @@
-### Templates ###
+### Template Sensors ###
 template:
 
-# Confirm that the templates are providing correct values before using this package, 
+# Confirm that the template sensors are providing correct values before using this package, 
 # or erroneous data will be populated in the Riemann Sum and Utility Meter sensors.
 
   - sensor:
 
     # Current Power Import from Grid / Export to Grid
-    # The sensor name used here is for the GoodWe integration using an EH inverter
+    # The example sensor used here is for the GoodWe integration using an EH inverter
     # which provides values in watts.
 
     # Instructions: 
@@ -24,7 +24,7 @@ template:
       unit_of_measurement: kW
       state: >
         {% set power = states('sensor.meter_active_power_total') | float(0) %}
-        {% set correctionFactor = 1.04 %}
+        {% set correctionFactor = 1.00 %}
         {{ iif (power < 0, power|abs / 1000 * correctionFactor, 0) | float }}
 
     - unique_id: inverter_export_power
@@ -33,6 +33,6 @@ template:
       unit_of_measurement: kW
       state: >
         {% set power = states('sensor.meter_active_power_total') | float(0) %}
-        {% set correctionFactor = 1.02 %}
+        {% set correctionFactor = 1.00 %}
         {{ iif (power > 0, power / 1000 * correctionFactor, 0) | float }}
 
