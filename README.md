@@ -33,7 +33,7 @@ The YAML is provided as a package. It can be implemented as [described in the Ho
 homeassistant:
   packages: !include_dir_named package
 ```
-and then copy `amber_usage.yaml` to `config/package/amber_usage.yaml`. Do not copy `amber_usage_part2.yaml` to the package folder.
+and then copy `amber_usage.yaml` to `config/package/amber_usage.yaml`. Do not copy `amber_usage_part2.yaml` or `charts.yaml` to the package folder.
 
 #### Implementation
 To get it running, the only changes you should need to make are in the template sensors and the automation.
@@ -50,7 +50,7 @@ To get it running, the only changes you should need to make are in the template 
     * The Riemann Sum sensors won't start logging data until non-zero data is coming from your template sensors. Give it some time.
   * Utility Meter sensors.
     * These are derived from the Riemann Sum sensors, so they won't exist until you have restarted Home Assistant and the Riemann Sum sensors have data.
-* Add chart cards to a dashboard.
+* Add chart cards to a dashboard by adding a manual card and pasting the yaml into it.
   * The provided charts are only intended as examples - build your own to suit your needs.
   * They are provided as a single vertical stack card that you can add to a dashboard.
 * Over a few days, note the difference between what your inverter has reported in kW to what is reported in Amber's app.
