@@ -27,7 +27,7 @@ Please note that the values will not match exactly with Amber's reporting, as:
 
 For example, my inverter typically reports imported and exported power about 2% lower than what is reported by the smart meter to Amber. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.02.
 
-The YAML is provided as a package. It can be implemented as [described in the Home Assistant docummentation](https://www.home-assistant.io/docs/configuration/packages/).  For example, add the following to `configuration.yaml`:
+The YAML is provided as a package. It can be implemented as [described in the Home Assistant documentation](https://www.home-assistant.io/docs/configuration/packages/).  For example, add the following to `configuration.yaml`:
 ```
 # Use packages in /package folder
 homeassistant:
