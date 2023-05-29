@@ -38,7 +38,7 @@ and then copy `amber_usage.yaml` to `config/package/amber_usage.yaml`. Do not co
 #### Implementation
 To get it running, the only changes you should need to make are in the template sensors and the automation.
 * Implement and test the template sensors first by adding `amber_usage.yaml` as a package and updating the code as described below.
-  * Do whatever is required to have `inverter_import_power` and `inverter_export_power` return power as positive units in kW.
+  * Do whatever is required to have `inverter_import_power` and `inverter_export_power` return power as positive values in kW.
     * Start with a `correctionFactor` value of 1.
     * Confirm that the sensors are returning correct import and export values as a positive number in kW.
 * Add the remaining code by appending the content of `amber_usage_part2.yaml` to `amber_usage.yaml`.
