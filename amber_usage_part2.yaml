@@ -144,3 +144,19 @@ utility_meter:
     name: 'Inverter: Export Energy (Daily)'
     source: sensor.inverter_export_energy_total
     cycle: daily
+
+  # Cumulative import cost for each day
+  amber_import_cost_daily:  
+    unique_id: amber_import_cost_daily
+    name: 'Amber: Import Cost (Daily)'
+    source: input_number.amber_import_cost_30_minutes
+    delta_values: true
+    cycle: daily
+
+  # Cumulative export profit for each day
+  amber_export_profit_daily:  
+    unique_id: amber_export_profit_daily
+    name: 'Amber: Export Profit (Daily)'
+    source: input_number.amber_export_profit_30_minutes
+    delta_values: true
+    cycle: daily
