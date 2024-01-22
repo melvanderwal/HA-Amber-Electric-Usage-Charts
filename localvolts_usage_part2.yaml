@@ -1,0 +1,260 @@
+### Automations ###
+automation:
+
+  # Writes final import & export prices and cost/profit at the end of each 5 minute period.
+  # Runs just before the 5 minute utility meters reset to zero.
+
+  # Instructions: 
+  # Update sensor.electricity_price_buy and sensor.electricity_price_sell to the 
+  # corresponding sensor names from your retailer integration.
+  - id: 'electricity_5_minute_import_cost_export_price'
+    alias: 'Electricity: 5 Minute Import Cost & Export Price'
+    trigger:
+    - platform: time_pattern
+      minutes: '4'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '9'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '14'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '19'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '24'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '29'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '34'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '39'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '44'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '49'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '54'
+      seconds: '58'
+    - platform: time_pattern
+      minutes: '59'
+      seconds: '58'
+    condition: []
+    action:
+    - service: input_number.set_value
+      data:
+        value: "{{ states('sensor.electricity_price_buy')|float(0) }}"
+      target:
+        entity_id: input_number.electricity_closing_import_price
+    - service: input_number.set_value
+      data:
+        value: "{{ states('sensor.electricity_price_sell')|float(0) }}"
+      target:
+        entity_id: input_number.electricity_closing_export_price
+    - service: input_number.set_value
+      data:
+        value: >
+          {% set energy = states('sensor.inverter_import_energy_5_minutes')|float(0) %} 
+          {% set price = states('sensor.electricity_price_buy')|float(0) %} 
+          {{ energy * price | float }}
+      target:
+        entity_id: input_number.electricity_import_cost_5_minutes
+    - service: input_number.set_value
+      data:
+        value: >
+          {% set energy = states('sensor.inverter_export_energy_5_minutes')|float(0) %} 
+          {% set price = states('sensor.electricity_price_sell')|float(0) %} 
+          {{ energy * price | float }}
+      target:
+        entity_id: input_number.electricity_export_profit_5_minutes
+    mode: single
+
+### Input Numbers ###
+input_number:
+
+  # Input numbers are used because template sensors add duplicate values to the
+  # Riemann Sum sensors when Home Assistant is restarted, falsely inflating the sum.
+
+  # Import price at the end of the 5 minute period
+  electricity_closing_import_price:
+    name: 'Electricity: Closing Import Price'
+    unit_of_measurement: $
+    icon: mdi:cash-minus
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.00001
+    mode: box
+
+  # Export price at the end of the 5 minute period
+  electricity_closing_export_price:
+    name: 'Electricity: Closing Export Price'
+    unit_of_measurement: $
+    icon: mdi:cash-plus
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.00001
+    mode: box
+
+  # Import cost at the end of the 5 minute period
+  electricity_import_cost_5_minutes:
+    name: 'Electricity: Import Cost (5 Minutes)'
+    unit_of_measurement: $
+    icon: mdi:cash-minus
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.001
+    mode: box
+
+  # Export profit at the end of the 5 minute period
+  electricity_export_profit_5_minutes:
+    name: 'Electricity: Export Profit (5 Minutes)'
+    unit_of_measurement: $
+    icon: mdi:cash-plus
+    initial: 0
+    min: -10000
+    max: 10000
+    step: 0.001
+    mode: box
+
+
+### Riemann Sum Sensors ###
+sensor:
+
+  # Cumulative energy import and export.
+  - platform: integration
+    unique_id: inverter_import_energy_total
+    name: 'Inverter: Import Energy Total'
+    source: sensor.inverter_import_power
+    method: left
+
+  - platform: integration
+    unique_id: inverter_export_energy_total
+    name: 'Inverter: Export Energy Total'
+    source: sensor.inverter_export_power
+    method: left
+
+
+### Utility Meters ###
+utility_meter:
+
+  # Cumulative energy import & export partitioned by different time durations.
+  # Cumulative cost and profit partitioned by selected time durations.
+  
+  # Five Minutes
+  inverter_import_energy_5_minutes:  
+    unique_id: inverter_import_energy_5_minutes
+    name: 'Inverter: Import Energy (5 Minutes)'
+    source: sensor.inverter_import_energy_total
+    cron: "*/5 * * * *"
+
+  inverter_export_energy_5_minutes:
+    unique_id: inverter_export_energy_5_minutes
+    name: 'Inverter: Export Energy (5 Minutes)'
+    source: sensor.inverter_export_energy_total
+    cron: "*/5 * * * *"
+
+  # Fifteen Minutes
+  inverter_import_energy_15_minutes:  
+    unique_id: inverter_import_energy_15_minutes
+    name: 'Inverter: Import Energy (15 Minutes)'
+    source: sensor.inverter_import_energy_total
+    cycle: quarter-hourly
+
+  inverter_export_energy_15_minutes:
+    unique_id: inverter_export_energy_15_minutes
+    name: 'Inverter: Export Energy (15 Minutes)'
+    source: sensor.inverter_export_energy_total
+    cycle: quarter-hourly
+
+  # Hourly
+  inverter_import_energy_hourly:  
+    unique_id: inverter_import_energy_hourly
+    name: 'Inverter: Import Energy (Hourly)'
+    source: sensor.inverter_import_energy_total
+    cycle: hourly
+
+  inverter_export_energy_hourly:
+    unique_id: inverter_export_energy_hourly
+    name: 'Inverter: Export Energy (Hourly)'
+    source: sensor.inverter_export_energy_total
+    cycle: hourly
+
+  electricity_import_cost_hourly:  
+    unique_id: electricity_import_cost_hourly
+    name: 'Electricity: Import Cost (Hourly)'
+    source: input_number.electricity_import_cost_5_minutes
+    delta_values: true
+    cycle: hourly
+
+  electricity_export_profit_hourly:  
+    unique_id: electricity_export_profit_hourly
+    name: 'Electricity: Export Profit (Hourly)'
+    source: input_number.electricity_export_profit_5_minutes
+    delta_values: true
+    cycle: hourly
+
+  # Daily
+  inverter_import_energy_daily:  
+    unique_id: inverter_import_energy_daily
+    name: 'Inverter: Import Energy (Daily)'
+    source: sensor.inverter_import_energy_total
+    cycle: daily
+
+  inverter_export_energy_daily:
+    unique_id: inverter_export_energy_daily
+    name: 'Inverter: Export Energy (Daily)'
+    source: sensor.inverter_export_energy_total
+    cycle: daily
+
+  electricity_import_cost_daily:  
+    unique_id: electricity_import_cost_daily
+    name: 'Electricity: Import Cost (Daily)'
+    source: input_number.electricity_import_cost_5_minutes
+    delta_values: true
+    cycle: daily
+
+  electricity_export_profit_daily:  
+    unique_id: electricity_export_profit_daily
+    name: 'Electricity: Export Profit (Daily)'
+    source: input_number.electricity_export_profit_5_minutes
+    delta_values: true
+    cycle: daily
+
+  # Monthly
+  inverter_import_energy_monthly:  
+    unique_id: inverter_import_energy_monthly
+    name: 'Inverter: Import Energy (Monthly)'
+    source: sensor.inverter_import_energy_total
+    cycle: monthly
+
+  inverter_export_energy_monthly:
+    unique_id: inverter_export_energy_monthly
+    name: 'Inverter: Export Energy (Monthly)'
+    source: sensor.inverter_export_energy_total
+    cycle: monthly
+
+  electricity_import_cost_monthly:  
+    unique_id: electricity_import_cost_monthly
+    name: 'Electricity: Import Cost (Monthly)'
+    source: input_number.electricity_import_cost_5_minutes
+    delta_values: true
+    cycle: monthly
+
+  electricity_export_profit_monthly:  
+    unique_id: electricity_export_profit_monthly
+    name: 'Electricity: Export Profit (Monthly)'
+    source: input_number.electricity_export_profit_5_minutes
+    delta_values: true
+    cycle: monthly
+
+
