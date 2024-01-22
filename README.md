@@ -1,5 +1,6 @@
 # Home Assistant - Amber Electric Usage Charts
 ### Usage charts in Home Assistant for Amber Electric pricing
+#### 22 January 2024: Added Localvolts version to repo.
 
 This package is used in Home Assistant with the Amber Electric integration to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
 
