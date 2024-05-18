@@ -194,6 +194,7 @@ utility_meter:
     name: 'Electricity: Import Cost (Hourly)'
     source: input_number.electricity_import_cost_5_minutes
     delta_values: true
+    net_consumption: true
     cycle: hourly
 
   electricity_export_profit_hourly:  
@@ -201,6 +202,7 @@ utility_meter:
     name: 'Electricity: Export Profit (Hourly)'
     source: input_number.electricity_export_profit_5_minutes
     delta_values: true
+    net_consumption: true
     cycle: hourly
 
   # Daily
@@ -221,6 +223,7 @@ utility_meter:
     name: 'Electricity: Import Cost (Daily)'
     source: input_number.electricity_import_cost_5_minutes
     delta_values: true
+    net_consumption: true
     cycle: daily
 
   electricity_export_profit_daily:  
@@ -228,6 +231,7 @@ utility_meter:
     name: 'Electricity: Export Profit (Daily)'
     source: input_number.electricity_export_profit_5_minutes
     delta_values: true
+    net_consumption: true
     cycle: daily
 
   # Monthly
@@ -248,6 +252,7 @@ utility_meter:
     name: 'Electricity: Import Cost (Monthly)'
     source: input_number.electricity_import_cost_5_minutes
     delta_values: true
+    net_consumption: true
     cycle: monthly
 
   electricity_export_profit_monthly:  
@@ -255,6 +260,7 @@ utility_meter:
     name: 'Electricity: Export Profit (Monthly)'
     source: input_number.electricity_export_profit_5_minutes
     delta_values: true
+    net_consumption: true
     cycle: monthly
 
 
