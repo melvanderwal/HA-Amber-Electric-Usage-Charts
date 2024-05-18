@@ -1,11 +1,11 @@
-# Home Assistant - Amber Electric Usage Charts
-### Usage charts in Home Assistant for Amber Electric pricing
+# Home Assistant - Wholesale Electricity Usage Charts
+### Usage charts in Home Assistant for Amber Electric or LocalVolts pricing
 #### 22 January 2024: Added Localvolts version to repo.
 #### 18 May 2024: Added support to cost/profit utility meters for negative prices.
 
-This package is used in Home Assistant with the Amber Electric integration to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
+This package is used in Home Assistant with the Amber Electric integration or integrated LocalVolts pricing to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
 
-Using prices from the Amber Electric integration, import and export prices are recorded at the end of each 30 minute period, as well as the cost/profit for each 30 minute period.
+Using prices from your wholesale electricity provider integration, import and export prices are recorded at the end of each 30 minute period, as well as the cost/profit for each 30 minute period.
 
 
 
@@ -16,18 +16,18 @@ _Combined Energy and Cost Charts_
 ![image](https://github.com/melvanderwal/HA-Amber-Electric-Usage-Charts/assets/25993713/432e1dba-8350-4e5d-9068-4eac5badc526)
 
 *Prerequisites:* 
-* The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric).
+* The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric) or having LocalVolts prices integrated into Home Assistant.
 * A Home Assistant inverter integration which provides import and export power (or a power sensor from which import and export can be derived).
   * The example code uses the [GoodWe integration](https://www.home-assistant.io/integrations/goodwe/).
 * The [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card).
   * This integration is not required if you choose to build your own charts with a different integration.
 
-Please note that the values will not match exactly with Amber's reporting, as:
+Please note that the values will not match exactly with your wholesale provider's reporting, as:
 * The power values reported by your inverter are unlikely to exactly match what is recorded by your smart meter and sent to Amber
 * Any Home Assistant downtime will not have logging of power or prices
-* The clock on your HA computer may not be in sync with Amber's clock, so the 30 minute period may be shifted slightly
+* The clock on your HA computer may not be in sync with your provider's clock, so the 30 minute period may be shifted slightly
 
-For example, my inverter typically reports imported and exported power about 2% lower than what is reported by the smart meter to Amber. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.02.
+For example, my inverter typically reports imported and exported power about 2% lower than what is reported by the smart meter to my provider. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.02.
 
 The YAML is provided as a package. It can be implemented as [described in the Home Assistant documentation](https://www.home-assistant.io/docs/configuration/packages/).  For example, add the following to `configuration.yaml`:
 ```
@@ -35,7 +35,9 @@ The YAML is provided as a package. It can be implemented as [described in the Ho
 homeassistant:
   packages: !include_dir_named package
 ```
-and then copy `amber_usage.yaml` to `config/package/amber_usage.yaml`. Do not copy `amber_usage_part2.yaml` or `charts.yaml` to the package folder.
+and then copy `amber_usage.yaml` to `config/package/amber_usage.yaml`. Do not copy `amber_usage_part2.yaml` or `charts.yaml` to the package folder. 
+
+For these instructions substitute `localvolts_usage.yaml` and `localvolts_usage_part2.yaml` if that is your provider.
 
 #### Implementation
 To get it running, the only changes you should need to make are in the template sensors and the automation.
