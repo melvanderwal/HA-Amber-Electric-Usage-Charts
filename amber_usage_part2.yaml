@@ -151,6 +151,7 @@ utility_meter:
     name: 'Amber: Import Cost (Daily)'
     source: input_number.amber_import_cost_30_minutes
     delta_values: true
+    net_consumption: true
     cycle: daily
 
   # Cumulative export profit for each day
@@ -159,4 +160,5 @@ utility_meter:
     name: 'Amber: Export Profit (Daily)'
     source: input_number.amber_export_profit_30_minutes
     delta_values: true
+    net_consumption: true
     cycle: daily
