@@ -1,9 +1,9 @@
 # Home Assistant - Wholesale Electricity Usage Charts
-### Usage charts in Home Assistant for Amber Electric or LocalVolts pricing
+### Usage charts in Home Assistant for Amber Electric or Localvolts pricing
 #### 22 January 2024: Added Localvolts version to repo.
 #### 18 May 2024: Added support to cost/profit utility meters for negative prices.
 
-This package is used in Home Assistant with the Amber Electric integration or integrated LocalVolts pricing to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
+This package is used in Home Assistant with the Amber Electric integration or integrated Localvolts pricing to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
 
 Using prices from your wholesale electricity provider integration, import and export prices are recorded at the end of each cost period (30 minutes for Amber, 5 minutes for Localvolts), as well as the cost/profit for each cost period.
 
@@ -16,7 +16,7 @@ _Combined Energy and Cost Charts_
 ![image](https://github.com/melvanderwal/HA-Amber-Electric-Usage-Charts/assets/25993713/432e1dba-8350-4e5d-9068-4eac5badc526)
 
 *Prerequisites:* 
-* The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric) or having LocalVolts prices integrated into Home Assistant.
+* The [Amber Electric Home Assistant integration](https://www.home-assistant.io/integrations/amberelectric) or having Localvolts prices integrated into Home Assistant.
 * A Home Assistant inverter integration which provides import and export power (or a power sensor from which import and export can be derived).
   * The example code uses the [GoodWe integration](https://www.home-assistant.io/integrations/goodwe/).
 * The [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card).
