@@ -5,7 +5,7 @@
 
 This package is used in Home Assistant with the Amber Electric integration or integrated LocalVolts pricing to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
 
-Using prices from your wholesale electricity provider integration, import and export prices are recorded at the end of each 30 minute period, as well as the cost/profit for each 30 minute period.
+Using prices from your wholesale electricity provider integration, import and export prices are recorded at the end of each cost period (30 minutes for Amber, 5 minutes for Localvolts), as well as the cost/profit for each cost period.
 
 
 
@@ -25,7 +25,7 @@ _Combined Energy and Cost Charts_
 Please note that the values will not match exactly with your wholesale provider's reporting, as:
 * The power values reported by your inverter are unlikely to exactly match what is recorded by your smart meter and sent to Amber
 * Any Home Assistant downtime will not have logging of power or prices
-* The clock on your HA computer may not be in sync with your provider's clock, so the 30 minute period may be shifted slightly
+* The clock on your HA computer may not be in sync with your provider's clock, so the cost period may be shifted slightly
 
 For example, my inverter typically reports imported and exported power about 2% lower than what is reported by the smart meter to my provider. In the `inverter_import_power` and `inverter_export_power` template sensors there is a `correctionFactor` variable which helps to compensate for this - I have it set to 1.02.
 
@@ -61,6 +61,6 @@ To get it running, the only changes you should need to make are in the template 
   * In the power template sensors, `correctionFactor` is a multiplier to adjust the kW of your inverter sensor to be closer to what is reported by your smart meter to Amber.  Adjust the value accordingly.
 
 #### Notes
-* If you look at the built-in HA state graph for the 30 minute utility meter, it will be smoothed and not represent the data very well.  Click the _Show more_ link to see it resetting to zero every 30 minutes.
+* If you look at the built-in HA state graph for the a utility meter, it will be smoothed and not represent the data very well.  Click the _Show more_ link to see it resetting to zero every cost period.
 * If you wish to have a utility meter with a different duration (e.g. hourly or weekly), it's simple enough to add another using one of the existing meters as an example.
-* Input numbers are used rather than sensors because upon a HA restart, sensors will create a new value at the last recorded value. In the case of Import Cost and Export Profit, the daily charts sum the values and this would result in a duplication of values in the 30 minute period, falsely inflating the daily sum.
+* Input numbers are used rather than sensors because upon a HA restart, sensors will create a new value at the last recorded value. In the case of Import Cost and Export Profit, the daily charts sum the values and this would result in a duplication of values in the cost period, falsely inflating the daily sum.
