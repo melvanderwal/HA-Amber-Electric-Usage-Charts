@@ -51,10 +51,12 @@ cards:
       - entity: sensor.inverter_import_energy_daily
         name: General Usage
         color: '#1086FF'
+        stack_group: energy
       - entity: sensor.inverter_export_energy_daily
         name: Solar Exports
         invert: true
         color: '#FFC624'
+        stack_group: energy
   - type: custom:apexcharts-card
     update_delay: 3s
     update_interval: 1min
@@ -107,10 +109,12 @@ cards:
       - entity: sensor.amber_import_cost_daily
         name: General Usage
         color: '#1086FF'
+        stack_group: energy
       - entity: sensor.amber_export_profit_daily
         name: Solar Exports
         invert: true
         color: '#FFC624'
+        stack_group: energy
   - type: custom:apexcharts-card
     update_delay: 3s
     update_interval: 1min
@@ -153,10 +157,12 @@ cards:
       - entity: sensor.inverter_import_energy_30_minutes
         name: General Usage
         color: '#1086FF'
+        stack_group: energy
       - entity: sensor.inverter_export_energy_30_minutes
         name: Solar Exports
         invert: true
         color: '#FFC624'
+        stack_group: energy
   - type: custom:apexcharts-card
     update_delay: 3s
     update_interval: 1min
@@ -200,10 +206,12 @@ cards:
       - entity: input_number.amber_import_cost_30_minutes
         name: General Usage
         color: '#1086FF'
+        stack_group: energy
       - entity: input_number.amber_export_profit_30_minutes
         name: Solar Exports
         invert: true
         color: '#FFC624'
+        stack_group: energy
   - type: custom:apexcharts-card
     update_delay: 3s
     update_interval: 1min
