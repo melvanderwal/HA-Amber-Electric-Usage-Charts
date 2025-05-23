@@ -3,6 +3,8 @@
 ***  
 **22 January 2024: Added Localvolts version to repo.**  
 **18 May 2024: Added negative price support to cost/profit utility meters.**  Existing users: just add the line `delta_values: true` to each import cost and export profit utility meter.
+
+**24 May 2025: Added 5min versions for Amber users that have been migrated to 5min billing.**
 ***  
 
 This package is used in Home Assistant with the Amber Electric integration or integrated Localvolts pricing to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
@@ -39,7 +41,9 @@ homeassistant:
 ```
 and then copy `amber_usage.yaml` to `config/package/amber_usage.yaml`. Do not copy `amber_usage_part2.yaml` or `charts.yaml` to the package folder. 
 
-For these instructions substitute `localvolts_usage.yaml` and `localvolts_usage_part2.yaml` if that is your provider.
+For these instructions:
+ * substitute `localvolts_usage.yaml` and `localvolts_usage_part2.yaml` if that is your provider.
+ * substitute `amber_5min_usage_part2.yaml` and `charts_5min.yaml` if you are on Amber 5minute billing.
 
 #### Implementation
 To get it running, the only changes you should need to make are in the template sensors and the automation.
