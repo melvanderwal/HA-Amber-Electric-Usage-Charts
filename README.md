@@ -2,6 +2,7 @@
 ### Usage charts in Home Assistant for Amber Electric or Localvolts pricing
 ***  
 **22 January 2024: Added Localvolts version to repo.**  
+
 **18 May 2024: Added negative price support to cost/profit utility meters.**  Existing users: just add the line `delta_values: true` to each import cost and export profit utility meter.
 
 **24 May 2025: Added 5min versions for Amber users that have been migrated to 5min billing.**
