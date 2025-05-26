@@ -1,0 +1,386 @@
+type: vertical-stack
+cards:
+  - type: custom:apexcharts-card
+    update_delay: 3s
+    update_interval: 1min
+    graph_span: 7d
+    span:
+      start: day
+      offset: '-6d'
+    header:
+      show: true
+      title: Usage - kWh/Day
+      show_states: true
+      colorize_states: true
+    apex_config:
+      chart:
+        height: 335px
+      dataLabels:
+        background:
+          foreColor: black
+          borderWidth: 0
+          padding: 0
+      tooltip:
+        x:
+          show: false
+      xaxis:
+        tooltip:
+          enabled: false
+    yaxis:
+      - id: left
+        align_to: 1
+        decimals: 0
+        apex_config:
+          forceNiceScale: true
+          title:
+            text: kWh
+    all_series_config:
+      yaxis_id: left
+      type: column
+      extend_to: false
+      float_precision: 1
+      stroke_width: 1
+      group_by:
+        func: max
+        duration: 1d
+      show:
+        legend_value: false
+        datalabels: true
+    stacked: true
+    series:
+      - entity: sensor.inverter_import_energy_daily
+        name: General Usage
+        color: '#1086FF'
+        stack_group: energy
+      - entity: sensor.inverter_export_energy_daily
+        name: Solar Exports
+        invert: true
+        color: '#FFC624'
+        stack_group: energy
+  - type: custom:apexcharts-card
+    update_delay: 3s
+    update_interval: 1min
+    graph_span: 7d
+    span:
+      start: day
+      offset: '-6d'
+    header:
+      show: true
+      title: Usage - $/Day
+      show_states: true
+      colorize_states: true
+    apex_config:
+      chart:
+        height: 335px
+      dataLabels:
+        background:
+          foreColor: black
+          borderWidth: 0
+          padding: 0
+      tooltip:
+        x:
+          show: false
+      xaxis:
+        tooltip:
+          enabled: false
+    yaxis:
+      - id: left
+        align_to: 1
+        decimals: 2
+        apex_config:
+          forceNiceScale: true
+          title:
+            text: $
+            rotate: 0
+    all_series_config:
+      yaxis_id: left
+      type: column
+      group_by:
+        func: max
+        duration: 1d
+      extend_to: false
+      float_precision: 2
+      stroke_width: 1
+      show:
+        legend_value: false
+        datalabels: true
+    stacked: true
+    series:
+      - entity: sensor.amber_import_cost_daily
+        name: General Usage
+        color: '#1086FF'
+        stack_group: energy
+      - entity: sensor.amber_export_profit_daily
+        name: Solar Exports
+        invert: true
+        color: '#FFC624'
+        stack_group: energy
+  - type: custom:apexcharts-card
+    update_delay: 3s
+    update_interval: 1min
+    graph_span: 24h
+    span:
+      start: hour
+      offset: '-23h'
+    header:
+      show: true
+      title: Usage – kWh/5Mins
+      show_states: true
+      colorize_states: true
+    apex_config:
+      chart:
+        height: 335px
+      xaxis:
+        tooltip:
+          enabled: false
+    yaxis:
+      - id: left
+        align_to: 1
+        decimals: 0
+        apex_config:
+          forceNiceScale: true
+          title:
+            text: kWh
+    all_series_config:
+      yaxis_id: left
+      type: column
+      group_by:
+        func: max
+        duration: 5m
+      extend_to: false
+      float_precision: 1
+      stroke_width: 1
+      show:
+        legend_value: false
+    stacked: true
+    series:
+      - entity: sensor.inverter_import_energy_5_minutes
+        name: General Usage
+        color: '#1086FF'
+        stack_group: energy
+      - entity: sensor.inverter_export_energy_5_minutes
+        name: Solar Exports
+        invert: true
+        color: '#FFC624'
+        stack_group: energy
+  - type: custom:apexcharts-card
+    update_delay: 3s
+    update_interval: 1min
+    graph_span: 24h
+    span:
+      start: hour
+      offset: '-23h'
+    header:
+      show: true
+      title: Usage - $/5 Minutes
+      show_states: true
+      colorize_states: true
+    apex_config:
+      chart:
+        height: 335px
+      xaxis:
+        tooltip:
+          enabled: false
+    yaxis:
+      - id: left
+        align_to: 0.1
+        decimals: 2
+        apex_config:
+          title:
+            text: $
+            rotate: 0
+    all_series_config:
+      yaxis_id: left
+      type: column
+      unit: $
+      group_by:
+        func: last
+        duration: 5m
+      extend_to: false
+      float_precision: 2
+      stroke_width: 1
+      show:
+        legend_value: false
+    stacked: true
+    series:
+      - entity: input_number.amber_import_cost_5_minutes
+        name: General Usage
+        color: '#1086FF'
+        stack_group: energy
+      - entity: input_number.amber_export_profit_5_minutes
+        name: Solar Exports
+        invert: true
+        color: '#FFC624'
+        stack_group: energy
+  - type: custom:apexcharts-card
+    update_delay: 3s
+    update_interval: 1min
+    graph_span: 7d
+    show:
+      last_updated: false
+    now:
+      show: false
+      label: now
+    span:
+      start: day
+      offset: '-6d'
+    header:
+      show: true
+      title: Energy - Daily
+      show_states: true
+      colorize_states: true
+    apex_config:
+      chart:
+        height: 335px
+      dataLabels:
+        background:
+          foreColor: black
+      tooltip:
+        x:
+          show: false
+      xaxis:
+        tooltip:
+          enabled: false
+    yaxis:
+      - id: left
+        decimals: 0
+        min: ~0
+        apex_config:
+          forceNiceScale: true
+          title:
+            text: kWh
+      - id: right
+        opposite: true
+        decimals: 2
+        min: ~0
+        apex_config:
+          forceNiceScale: true
+          title:
+            text: $
+            rotate: 0
+    all_series_config:
+      group_by:
+        fill: zero
+        func: max
+        duration: 1d
+      extend_to: false
+      show:
+        legend_value: false
+        in_header: true
+    series:
+      - entity: sensor.inverter_import_energy_daily
+        name: Imported
+        type: column
+        yaxis_id: left
+        color: firebrick
+        float_precision: 1
+        stroke_width: 1
+      - entity: sensor.amber_import_cost_daily
+        name: Bought
+        type: line
+        yaxis_id: right
+        unit: $
+        color: lightcoral
+        float_precision: 2
+        stroke_width: 2
+        show:
+          datalabels: true
+      - entity: sensor.amber_export_profit_daily
+        name: Sold
+        type: line
+        yaxis_id: right
+        unit: $
+        color: lightgreen
+        float_precision: 2
+        stroke_width: 2
+        show:
+          datalabels: true
+      - entity: sensor.inverter_export_energy_daily
+        name: Exported
+        type: column
+        yaxis_id: left
+        color: forestgreen
+        float_precision: 1
+        stroke_width: 1
+  - type: custom:apexcharts-card
+    update_delay: 3s
+    update_interval: 1min
+    graph_span: 24h
+    span:
+      start: hour
+      offset: '-23h'
+    header:
+      show: true
+      title: Energy - 5 Minutes
+      show_states: true
+      colorize_states: true
+    apex_config:
+      chart:
+        height: 335px
+      xaxis:
+        tooltip:
+          enabled: false
+    yaxis:
+      - id: left
+        decimals: 1
+        min: ~0
+        apex_config:
+          title:
+            text: kWh
+      - id: right
+        opposite: true
+        decimals: 2
+        min: ~0
+        apex_config:
+          title:
+            text: $
+            rotate: 0
+    all_series_config:
+      extend_to: false
+      show:
+        legend_value: false
+        in_header: false
+      group_by:
+        func: max
+        duration: 5m
+    series:
+      - entity: sensor.inverter_import_energy_5_minutes
+        name: Imported
+        type: column
+        yaxis_id: left
+        color: firebrick
+        float_precision: 1
+        stroke_width: 1
+        show:
+          in_header: true
+      - entity: input_number.amber_closing_import_price
+        name: Bought Price
+        type: line
+        curve: stepline
+        yaxis_id: right
+        color: lightcoral
+        float_precision: 2
+        stroke_width: 2
+        time_delta: '-15min'
+        group_by:
+          func: last
+      - entity: input_number.amber_closing_export_price
+        name: Sold Price
+        type: line
+        curve: stepline
+        yaxis_id: right
+        color: lightgreen
+        float_precision: 2
+        stroke_width: 2
+        time_delta: '-15min'
+        group_by:
+          func: last
+      - entity: sensor.inverter_export_energy_5_minutes
+        name: Exported
+        type: column
+        yaxis_id: left
+        color: forestgreen
+        float_precision: 1
+        stroke_width: 1
+        show:
+          in_header: true
