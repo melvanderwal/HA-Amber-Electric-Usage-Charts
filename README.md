@@ -1,6 +1,8 @@
 # Home Assistant - Wholesale Electricity Usage Charts
 ### Usage charts in Home Assistant for Amber Electric or Localvolts pricing
 ***  
+**24 May 2025: Updated files for 5 minute Amber Electric billing added by @cabberly.**
+
 **22 January 2024: Added Localvolts version to repo.**  
 
 **18 May 2024: Added negative price support to cost/profit utility meters.**  Existing users: just add the line `delta_values: true` to each import cost and export profit utility meter.
@@ -47,7 +49,7 @@ For these instructions:
  * substitute `amber_5min_usage_part2.yaml` and `charts_5min.yaml` if you are on Amber 5minute billing.
 
 #### Implementation
-To get it running, the only changes you should need to make are in the template sensors and the automation.
+To get it running, the only changes you should need to make are in the template sensors and the automation. If you are on **Amber Electric 5 minute billing intervals**, use the files which contain 5min in the filename. If you are on Amber 30 minute billing intervals, use the files without 5min in the filename.
 * Implement and test the template sensors first by adding `amber_usage.yaml` as a package and updating the code as described below.
   * Do whatever is required to have `inverter_import_power` and `inverter_export_power` return power as positive values in kW.
     * Start with a `correctionFactor` value of 1.
