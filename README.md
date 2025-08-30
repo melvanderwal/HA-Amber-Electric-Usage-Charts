@@ -1,13 +1,12 @@
 # Home Assistant - Wholesale Electricity Usage Charts
 ### Usage charts in Home Assistant for Amber Electric or Localvolts pricing
 ***  
-**24 May 2025: Updated files for 5 minute Amber Electric billing added by @cabberly.**
+**24 May 2025: Added 5min versions for Amber users that have been migrated to 5min billing.**
 
 **22 January 2024: Added Localvolts version to repo.**  
 
 **18 May 2024: Added negative price support to cost/profit utility meters.**  Existing users: just add the line `delta_values: true` to each import cost and export profit utility meter.
 
-**24 May 2025: Added 5min versions for Amber users that have been migrated to 5min billing.**
 ***  
 
 This package is used in Home Assistant with the Amber Electric integration or integrated Localvolts pricing to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
