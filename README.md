@@ -8,7 +8,7 @@
 
 **24 May 2025: Added 5min versions for Amber users that have been migrated to 5min billing.**  
 
-**3 October 2025: Charts updated to use the last group_by aggregator, which accommodates the display of negative purchase costs.** Existing users: just change `func: max` to `func: last` in each `group_by` section.
+**3 October 2025: Charts updated to use the last group_by aggregator, which accommodates the display of negative purchase costs.** Existing users: just change `func: max` to `func: last` in each `group_by` section of each chart.
 
 ***  
 
