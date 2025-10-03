@@ -8,6 +8,8 @@
 
 **24 May 2025: Added 5min versions for Amber users that have been migrated to 5min billing.**
 
+**3 October 2025: Charts updated to use the last group_by aggregator, which accommodates the display of negative purchase costs.**
+
 ***  
 
 This package is used in Home Assistant with the Amber Electric integration or integrated Localvolts pricing to estimate usage in kilowatt hours and dollars. Example charts using the [ApexCharts Card HACS frontend integration](https://github.com/RomRider/apexcharts-card) are included.
