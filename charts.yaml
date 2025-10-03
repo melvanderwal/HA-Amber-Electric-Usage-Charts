@@ -41,7 +41,7 @@ cards:
       float_precision: 1
       stroke_width: 1
       group_by:
-        func: max
+        func: last
         duration: 1d
       show:
         legend_value: false
@@ -96,7 +96,7 @@ cards:
       yaxis_id: left
       type: column
       group_by:
-        func: max
+        func: last
         duration: 1d
       extend_to: false
       float_precision: 2
@@ -145,7 +145,7 @@ cards:
       yaxis_id: left
       type: column
       group_by:
-        func: max
+        func: last
         duration: 30m
       extend_to: false
       float_precision: 1
@@ -261,7 +261,7 @@ cards:
     all_series_config:
       group_by:
         fill: zero
-        func: max
+        func: last
         duration: 1d
       extend_to: false
       show:
@@ -341,7 +341,7 @@ cards:
         legend_value: false
         in_header: false
       group_by:
-        func: max
+        func: last
         duration: 30m
     series:
       - entity: sensor.inverter_import_energy_30_minutes
@@ -362,8 +362,6 @@ cards:
         float_precision: 2
         stroke_width: 2
         time_delta: '-15min'
-        group_by:
-          func: last
       - entity: input_number.amber_closing_export_price
         name: Sold Price
         type: line
@@ -373,8 +371,6 @@ cards:
         float_precision: 2
         stroke_width: 2
         time_delta: '-15min'
-        group_by:
-          func: last
       - entity: sensor.inverter_export_energy_30_minutes
         name: Exported
         type: column
