@@ -6,9 +6,9 @@
 
 **18 May 2024: Added negative price support to cost/profit utility meters.**  Existing users: just add the line `delta_values: true` to each import cost and export profit utility meter.
 
-**24 May 2025: Added 5min versions for Amber users that have been migrated to 5min billing.**
+**24 May 2025: Added 5min versions for Amber users that have been migrated to 5min billing.**  
 
-**3 October 2025: Charts updated to use the last group_by aggregator, which accommodates the display of negative purchase costs.**
+**3 October 2025: Charts updated to use the last group_by aggregator, which accommodates the display of negative purchase costs.** Existing users: just change `func: max` to `func: last` in each `group_by` section.
 
 ***  
 
